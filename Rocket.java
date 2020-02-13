@@ -34,6 +34,7 @@ public class Rocket extends SmoothMover
     {
         checkKeys();
         reloadDelayCount++;
+        move();
     }
     
     /**
@@ -44,6 +45,29 @@ public class Rocket extends SmoothMover
         if (Greenfoot.isKeyDown("space")) 
         {
             fire();
+        }
+        if (Greenfoot.isKeyDown("left")) 
+        { 
+            turn(-5); 
+        } 
+        if (Greenfoot.isKeyDown("right")) 
+        { 
+            turn(5);
+        }
+        ignite(Greenfoot.isKeyDown("up"));
+    }
+    
+    private void ignite(boolean boosterOn)
+    {
+      if(boosterOn)
+      {
+          setImage(rocketWithThrust);
+          addToVelocity(new Vector(getRotation(), .3));
+
+        }
+        else
+        {
+            setImage(rocket);
         }
     }
     
