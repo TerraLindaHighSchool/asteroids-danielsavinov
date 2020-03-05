@@ -24,8 +24,20 @@ public class Rocket extends SmoothMover
     public Rocket()
     {
         reloadDelayCount = 5;
+        
     }
-
+    
+    private void checkCollision() 
+    
+    {
+      if( getOneIntersectingObject(Asteroid.class) != null)
+      {
+          Space world= (Space) getWorld();
+          world.addObject(new Explosion(),getX(),getY());
+          world.removeObject(this);
+          world.gameOver();
+      }
+    } 
     /**
      * Do what a rocket's gotta do. (Which is: mostly flying about, and turning,
      * accelerating and shooting when the right keys are pressed.)
@@ -35,6 +47,7 @@ public class Rocket extends SmoothMover
         checkKeys();
         reloadDelayCount++;
         move();
+        checkCollision();
     }
     
     /**
